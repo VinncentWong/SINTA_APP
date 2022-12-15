@@ -13,6 +13,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.sinta.sinta_app.entity.Role;
+
 import lombok.Data;
 
 @Entity
@@ -64,4 +66,6 @@ public class Agent {
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDate deletedAt;
+
+    private final Role role = Role.AGENT;
 }

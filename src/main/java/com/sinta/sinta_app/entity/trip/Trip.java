@@ -1,5 +1,6 @@
 package com.sinta.sinta_app.entity.trip;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -38,13 +40,13 @@ public class Trip {
     private Deskripsi deskripsi;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private FasilitasTermasuk fasilitasTermasuk;
+    private List<FasilitasTermasuk> fasilitasTermasuk;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private FasilitasTidakTermasuk fasilitasTidakTermasuk;
+    private List<FasilitasTidakTermasuk> fasilitasTidakTermasuk;
 
     @ElementCollection
-    @CollectionTable
-    @MapKey(name = "jumlah_peserta_tour")
-    private Map<String, Object> harga;
+    @CollectionTable(name = "harga", joinColumns = @JoinColumn(name = "id_trip"))
+    @MapKeyColumn(name = "jumlah_orang")
+    private Map<String, Integer> harga;
 }

@@ -1,5 +1,6 @@
 package com.sinta.sinta_app.entity.trip;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.sinta.sinta_app.entity.trip.deskripsi.Deskripsi;
 import com.sinta.sinta_app.entity.trip.fasilitas.FasilitasTermasuk;
@@ -49,4 +53,12 @@ public class Trip {
     @CollectionTable(name = "harga", joinColumns = @JoinColumn(name = "id_trip"))
     @MapKeyColumn(name = "jumlah_orang")
     private Map<String, Integer> harga;
+
+    @CreationTimestamp
+    private LocalDate createdAt;
+
+    @UpdateTimestamp
+    private LocalDate updatedAt;
+
+    private LocalDate deletedAt;
 }

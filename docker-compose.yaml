@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   sinta_db:
-    name: sinta_db
+    container_name: sinta_db
     image: postgres:latest
     volumes:
       - sinta_volume:/var/lib/postgresql/data

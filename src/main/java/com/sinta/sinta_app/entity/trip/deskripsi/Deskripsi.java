@@ -1,5 +1,7 @@
 package com.sinta.sinta_app.entity.trip.deskripsi;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +33,7 @@ public class Deskripsi {
     private byte[] cover;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private DetailDestinasi detailDestinasi;
+    private List<DetailDestinasi> detailDestinasi;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)

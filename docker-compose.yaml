@@ -1,1 +1,26 @@
 version: '3.7'
+services:
+  sinta_db:
+    name: sinta_db
+    image: postgres:latest
+    volumes:
+      - sinta_volume:/var/lib/postgresql/data
+    networks:
+      - sinta_network
+    restart: on-failure
+    ports:
+      - 6000:5432
+    environment:
+      - POSTGRES_PASSWORD=sinta_app
+  sinta_redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    container_name: sinta_redis
+
+volumes:
+  sinta_volume:
+  sinta_redis:
+
+networks:
+  sinta_network:

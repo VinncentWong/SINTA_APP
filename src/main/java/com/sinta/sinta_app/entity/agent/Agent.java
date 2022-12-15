@@ -25,6 +25,8 @@ public class Agent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String username;
+
     private String email;
 
     private String password;
@@ -57,14 +59,11 @@ public class Agent {
     private String akunTwitter;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate createdAt;
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate updatedAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate deletedAt;
 
     private final Role role = Role.AGENT;

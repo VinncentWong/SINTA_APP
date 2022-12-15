@@ -29,7 +29,7 @@ public class AgentController {
         return this.service.createAgent(dto);
     }
 
-    @GetMapping("/get/${id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<Response> getAgent(@PathVariable("id") Long id) throws AgentNotFoundException{
         return this.service.getAgent(id);
     }

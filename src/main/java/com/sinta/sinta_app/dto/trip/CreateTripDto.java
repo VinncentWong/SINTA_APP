@@ -1,5 +1,8 @@
 package com.sinta.sinta_app.dto.trip;
 
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.sinta.sinta_app.dto.trip.deskripsi.DeskripsiDto;
@@ -9,11 +12,20 @@ import com.sinta.sinta_app.dto.trip.harga.HargaDto;
 
 public record CreateTripDto(
     @NotNull
+    @NotBlank
+    String informasiPenting,
+    @NotNull
+    @NotBlank
+    String linkRundown,
+    @NotNull
+    @NotBlank
+    String catatanHarga,
+    @NotNull
     DeskripsiDto deskripsi,
     @NotNull
-    FasilitasTermasukDto fasilitasTermasuk,
+    List<FasilitasTermasukDto> fasilitasTermasuk,
     @NotNull
-    FasilitasTidakTermasukDto fasilitasTidakTermasuk,
+    List<FasilitasTidakTermasukDto> fasilitasTidakTermasuk,
     @NotNull
-    HargaDto harga
+    List<HargaDto> harga
 ) {}

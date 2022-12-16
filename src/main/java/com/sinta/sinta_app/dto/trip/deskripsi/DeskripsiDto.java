@@ -1,5 +1,7 @@
 package com.sinta.sinta_app.dto.trip.deskripsi;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -8,5 +10,5 @@ public record DeskripsiDto(
     @NotBlank
     String judul,
     @NotNull
-    DetailDestinasiDto detailDestinasi
+    List<DetailDestinasiDto> detailDestinasi
 ) {}

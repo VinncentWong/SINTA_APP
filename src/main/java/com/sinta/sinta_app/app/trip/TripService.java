@@ -76,6 +76,7 @@ public class TripService {
                 j++;
             } catch(IOException ex){
                 serviceRunSuccessful = false;
+                break;
             }
         }
         if(!serviceRunSuccessful){

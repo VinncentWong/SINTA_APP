@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.sinta.sinta_app.entity.Response;
 import com.sinta.sinta_app.exception.AgentNotFoundException;
+import com.sinta.sinta_app.exception.TripNotFoundException;
 import com.sinta.sinta_app.util.ResponseUtil;
 
 @RestControllerAdvice
@@ -22,6 +23,11 @@ public class Interceptor {
     
     @ExceptionHandler(value = AgentNotFoundException.class)
     public ResponseEntity<Response> handleException(AgentNotFoundException ex){
+        return this.util.sendResponse(ex.getMessage(), HttpStatus.NOT_FOUND, false, null);
+    }
+
+    @ExceptionHandler(value = TripNotFoundException.class)
+    public ResponseEntity<Response> handleException(TripNotFoundException ex){
         return this.util.sendResponse(ex.getMessage(), HttpStatus.NOT_FOUND, false, null);
     }
 }

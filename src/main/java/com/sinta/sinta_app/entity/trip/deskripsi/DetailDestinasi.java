@@ -24,7 +24,7 @@ public class DetailDestinasi {
 
     private String title;
 
-    @Lob
+    @JsonIgnore
     private byte[] image;
 
     private String description;

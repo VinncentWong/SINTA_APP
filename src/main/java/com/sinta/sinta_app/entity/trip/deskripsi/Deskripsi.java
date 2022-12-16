@@ -29,10 +29,10 @@ public class Deskripsi {
 
     private String judul;
 
-    @Lob
+    @JsonIgnore
     private byte[] cover;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "deskripsi")
     private List<DetailDestinasi> detailDestinasi;
 
     @JsonIgnore

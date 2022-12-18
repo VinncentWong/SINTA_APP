@@ -45,6 +45,11 @@ public class TripController {
         return this.service.createTrip(id, dto, imageDetailDestination, imageCoverFile);
     }
 
+    @GetMapping("/getall")
+    public ResponseEntity<Response> getTrip() throws TripNotFoundException{
+        return this.service.getTrip();
+    }
+
     @GetMapping("/get")
     public ResponseEntity<Response> getTrip(@Param("idAgent") Long idAgent, @Param("idTrip") Long idTrip) throws TripNotFoundException{
         return this.service.getTrip(idAgent, idTrip);
@@ -53,10 +58,5 @@ public class TripController {
     @GetMapping("/get/{idAgent}")
     public ResponseEntity<Response> getTrip(@PathVariable("idAgent") Long idAgent) throws TripNotFoundException{
         return this.service.getTrip(idAgent);
-    }
-
-    @GetMapping("/get/photo/{idTrip}")
-    public ResponseEntity<Response> getPhotoTrip(@PathVariable("idTrip") Long idTrip) throws TripNotFoundException{
-        return this.service.getPhotoTrip(idTrip);
     }
 }

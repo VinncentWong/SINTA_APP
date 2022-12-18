@@ -123,6 +123,19 @@ public class TripService {
         return this.util.sendResponse("sukses membuat trip", HttpStatus.CREATED, true, trip);
     }
 
+    public ResponseEntity<Response> getTrip() throws TripNotFoundException{
+        Iterable<Trip> iterable = this.repository.findAll();
+        if(iterable instanceof List<Trip> list){
+            if(list.size() == 0){
+                throw new TripNotFoundException("data trip tidak ditemukan!");
+            } else {
+                return this.util.sendResponse("sukses mendapatkan trip", HttpStatus.OK, true, list);
+            }
+        } else {
+            return this.util.sendResponse("class cast exception pada collection trip", HttpStatus.INTERNAL_SERVER_ERROR, false, null);
+        }
+    }
+
     public ResponseEntity<Response> getTrip(Long idAgent, Long idTrip) throws TripNotFoundException{
         Trip trip = this.repository.find(idAgent, idTrip).orElseThrow(() -> new TripNotFoundException("data trip tidak ditemukan di database!"));
         return this.util.sendResponse("sukses mendapatkan trip", HttpStatus.OK, true, trip);
@@ -131,17 +144,5 @@ public class TripService {
     public ResponseEntity<Response> getTrip(Long idAgent) throws TripNotFoundException{
        List<Trip> trip = this.repository.find(idAgent).orElseThrow(() -> new TripNotFoundException());
        return this.util.sendResponse("sukses mendapatkan trip", HttpStatus.OK, true, trip);
-    }
-
-    public ResponseEntity<Response> getPhotoTrip(Long idTrip) throws TripNotFoundException{
-        Trip trip = this.repository.findById(idTrip).orElseThrow(() -> new TripNotFoundException());
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("image_cover", trip.getDeskripsi().getCover());
-        List<byte[]> list = new ArrayList<>();
-        trip.getDeskripsi().getDetailDestinasi().forEach((x) -> {
-            list.add(x.getImage());
-        });
-        response.put("image_detail_destination", list);
-        return this.util.sendResponse("sukses mendapatkan photo", HttpStatus.OK, true, response);
     }
 }

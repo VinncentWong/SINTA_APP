@@ -45,6 +45,16 @@ public class Trip {
 
     private String catatanHarga;
 
+    private String kota;
+
+    private String provinsi;
+
+    private String lamaTrip;
+
+    private Boolean needRequirement;
+
+    private KategoriTrip kategoriTrip;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "trip")
     private Deskripsi deskripsi;
 

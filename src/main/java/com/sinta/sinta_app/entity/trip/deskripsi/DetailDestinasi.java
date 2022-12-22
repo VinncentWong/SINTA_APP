@@ -23,8 +23,7 @@ public class DetailDestinasi {
     private Long id;
 
     private String title;
-
-    @JsonIgnore
+    
     private byte[] image;
 
     private String description;

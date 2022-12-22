@@ -29,7 +29,6 @@ public class Deskripsi {
 
     private String judul;
 
-    @JsonIgnore
     private byte[] cover;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "deskripsi")

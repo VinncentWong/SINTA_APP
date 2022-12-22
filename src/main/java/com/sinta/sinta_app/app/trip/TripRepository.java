@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.sinta.sinta_app.entity.trip.KategoriTrip;
 import com.sinta.sinta_app.entity.trip.Trip;
 
 @Repository
@@ -16,5 +17,11 @@ public interface TripRepository extends CrudRepository<Trip, Long>{
     Optional<Trip> find(Long idAgent, Long idTrip);
 
     @Query(nativeQuery = true, value = "SELECT * FROM trip WHERE agent_id = ?1")
-    Optional<List<Trip>> find(Long idAgent);
+    List<Trip> find(Long idAgent);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM trip WHERE kategori_trip = ?1")
+    List<Trip> findByCategory(int kategori);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM trip WHERE need_requirement = ?1")
+    List<Trip> find(boolean notNeedRequirement);
 }

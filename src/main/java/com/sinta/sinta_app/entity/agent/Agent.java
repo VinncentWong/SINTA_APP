@@ -9,13 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sinta.sinta_app.entity.Role;
 import com.sinta.sinta_app.entity.trip.Trip;
 
@@ -43,24 +41,29 @@ public class Agent {
 
     private String alamatKantor;
 
-    private String kontakKantor;
+    private String kontakAdminKantor;
 
     private String whatsappKantor;
 
-    private String akunInstagram;
+    private String linkAkunInstagram;
 
-    @JsonIgnore
     private byte[] suratIzinUsaha;
 
     private String linkGmaps;
 
-    private String akunTelegram;
+    private String linkAkunTelegram;
 
-    private String akunFacebook;
+    private String linkAkunFacebook;
 
-    private String akunLine;
+    private String linkAkunLine;
 
-    private String akunTwitter;
+    private String linkAkunTwitter;
+
+    private String bio;
+
+    private Boolean isVerified;
+
+    private String aboutMe;
 
     @CreationTimestamp
     private LocalDate createdAt;

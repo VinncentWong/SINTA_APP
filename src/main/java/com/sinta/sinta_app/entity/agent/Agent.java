@@ -12,16 +12,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.sinta.sinta_app.entity.Extractable;
 import com.sinta.sinta_app.entity.Role;
+import com.sinta.sinta_app.entity.StatusVerified;
 import com.sinta.sinta_app.entity.trip.Trip;
 
 import lombok.Data;
 
 @Entity
 @Data
-public class Agent {
+@DynamicUpdate
+public class Agent implements Extractable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,9 +65,11 @@ public class Agent {
 
     private String bio;
 
-    private Boolean isVerified;
+    private StatusVerified statusVerified = StatusVerified.BELUM_TERVERIFIKASI;
 
     private String aboutMe;
+
+    private boolean isPaymentExpired;
 
     @CreationTimestamp
     private LocalDate createdAt;

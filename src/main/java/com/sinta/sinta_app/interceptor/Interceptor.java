@@ -3,6 +3,7 @@ package com.sinta.sinta_app.interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -29,5 +30,10 @@ public class Interceptor {
     @ExceptionHandler(value = TripNotFoundException.class)
     public ResponseEntity<Response> handleException(TripNotFoundException ex){
         return this.util.sendResponse(ex.getMessage(), HttpStatus.NOT_FOUND, false, null);
+    }
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public ResponseEntity<Response> handleException(MethodArgumentNotValidException ex){
+        return this.util.sendResponse(ex.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST, false, null);
     }
 }

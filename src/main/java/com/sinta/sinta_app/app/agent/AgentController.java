@@ -67,4 +67,9 @@ public class AgentController {
     public ResponseEntity<Response> updateAgent(@PathVariable("agentId") Long id,  @RequestBody @Valid UpdateAgentDto dto) throws AgentNotFoundException{
         return this.service.updateAgent(id, dto);
     }
+
+    @PatchMapping("/update/payment")
+    public ResponseEntity<Response> updatePaymentStatus(@RequestParam("idAgent") Long id, @RequestParam("month") int month) throws AgentNotFoundException{
+        return this.service.updatePaymentStatus(null, month);
+    }
 }

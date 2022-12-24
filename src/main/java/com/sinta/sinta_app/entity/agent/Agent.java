@@ -18,6 +18,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.sinta.sinta_app.entity.Extractable;
 import com.sinta.sinta_app.entity.Role;
 import com.sinta.sinta_app.entity.StatusVerified;
+import com.sinta.sinta_app.entity.portofolio.Portofolio;
 import com.sinta.sinta_app.entity.trip.Trip;
 
 import lombok.Data;
@@ -70,6 +71,11 @@ public class Agent implements Extractable{
     private String aboutMe;
 
     private boolean isPaymentExpired;
+
+    private LocalDate premiumDate;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "agent")
+    private List<Portofolio> portofolio;
 
     @CreationTimestamp
     private LocalDate createdAt;

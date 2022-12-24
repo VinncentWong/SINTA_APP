@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sinta.sinta_app.dto.agent.CompleteDataDto;
 import com.sinta.sinta_app.dto.agent.LoginDto;
 import com.sinta.sinta_app.dto.agent.RegistrationDto;
+import com.sinta.sinta_app.dto.agent.UpdateAgentDto;
 import com.sinta.sinta_app.entity.Response;
 import com.sinta.sinta_app.entity.StatusVerified;
 import com.sinta.sinta_app.entity.agent.Agent;
@@ -122,7 +123,23 @@ public class AgentService {
     }
 
     public ResponseEntity<Response> isVerified(Long id) throws AgentNotFoundException{
-        Agent agent = this.repository.findById(id).orElseThrow(() -> new AgentNotFoundException());
+        Agent agent = this.repository.findById(id).orElseThrow(() -> new AgentNotFoundException("data agent tidak ditemukan"));
         return this.util.sendResponse("sukses mendapatkan agent", HttpStatus.OK, true, agent.getStatusVerified());
+    }
+
+    public ResponseEntity<Response> updateAgent(Long id, UpdateAgentDto dto) throws AgentNotFoundException{
+        Agent agent = this.repository.findById(id).orElseThrow(() -> new AgentNotFoundException("data agent tidak ditemukan"));
+        agent.setEmail(dto.email());
+        agent.setUsername(dto.username());
+        this.repository.save(agent);
+        return this.util.sendResponse("sukses mengupdate agent", HttpStatus.OK, true, agent);
+    }
+
+    public ResponseEntity<Response> updatePaymentStatus(Long id, int month) throws AgentNotFoundException{
+        Agent agent = this.repository.findById(id).orElseThrow(() -> new AgentNotFoundException("data agent tidak ditemukan"));
+        agent.setPremiumDate(agent.getPremiumDate().plusMonths(month));
+        agent.setPaymentExpired(false);
+        this.repository.save(agent);
+        return this.util.sendResponse("sukses mengupdate status pembayaran agent", HttpStatus.OK, true, agent);
     }
 }

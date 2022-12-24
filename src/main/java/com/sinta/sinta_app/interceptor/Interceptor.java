@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.sinta.sinta_app.entity.Response;
 import com.sinta.sinta_app.exception.AgentNotFoundException;
+import com.sinta.sinta_app.exception.PortofolioNotFoundException;
 import com.sinta.sinta_app.exception.TripNotFoundException;
 import com.sinta.sinta_app.util.ResponseUtil;
 
@@ -35,5 +36,10 @@ public class Interceptor {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<Response> handleException(MethodArgumentNotValidException ex){
         return this.util.sendResponse(ex.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST, false, null);
+    }
+
+    @ExceptionHandler(value = PortofolioNotFoundException.class)
+    public ResponseEntity<Response> handleException(PortofolioNotFoundException ex){
+        return this.util.sendResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, false, null);
     }
 }

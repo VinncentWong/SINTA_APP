@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sinta.sinta_app.app.trip.TripRepository;
 import com.sinta.sinta_app.dto.agent.CompleteDataDto;
 import com.sinta.sinta_app.dto.agent.LoginDto;
 import com.sinta.sinta_app.dto.agent.RegistrationDto;
@@ -22,7 +23,9 @@ import com.sinta.sinta_app.dto.agent.UpdateAgentDto;
 import com.sinta.sinta_app.entity.Response;
 import com.sinta.sinta_app.entity.StatusVerified;
 import com.sinta.sinta_app.entity.agent.Agent;
+import com.sinta.sinta_app.entity.trip.Trip;
 import com.sinta.sinta_app.exception.AgentNotFoundException;
+import com.sinta.sinta_app.exception.TripNotFoundException;
 import com.sinta.sinta_app.util.JwtUtil;
 import com.sinta.sinta_app.util.ResponseUtil;
 
@@ -38,12 +41,15 @@ public class AgentService {
     
     private final JwtUtil jwt;
 
+    private final TripRepository tripRepository;
+
     @Autowired
-    public AgentService(AgentRepository repository, BCryptPasswordEncoder bcrypt, ResponseUtil util, JwtUtil jwt){
+    public AgentService(AgentRepository repository, BCryptPasswordEncoder bcrypt, ResponseUtil util, JwtUtil jwt, TripRepository tripRepo){
         this.repository = repository;
         this.bcrypt = bcrypt;
         this.util = util;
         this.jwt = jwt;
+        this.tripRepository = tripRepo;
     }
 
     public ResponseEntity<Response> createAgent(RegistrationDto dto){
@@ -107,6 +113,12 @@ public class AgentService {
     public ResponseEntity<Response> getAgent(Long id) throws AgentNotFoundException{
         Agent agent = this.repository.findById(id).orElseThrow(() -> new AgentNotFoundException("data agent tidak ditemukan"));
         return this.util.sendResponse("sukses mendapatkan agent", HttpStatus.OK, true, agent);
+    }
+
+    public ResponseEntity<Response> getAgentByTripId(Long tripId) throws TripNotFoundException{
+        Trip trip = this.tripRepository.findById(tripId).orElseThrow(() -> new TripNotFoundException("data trip tidak ditemukan"));
+        Agent agent = trip.getAgent();
+        return this.util.sendResponse("sukses menemukan data agent", HttpStatus.OK, true, agent);
     }
 
     public ResponseEntity<Response> getAgents() throws AgentNotFoundException{

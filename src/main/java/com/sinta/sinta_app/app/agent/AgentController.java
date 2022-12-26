@@ -22,6 +22,7 @@ import com.sinta.sinta_app.dto.agent.RegistrationDto;
 import com.sinta.sinta_app.dto.agent.UpdateAgentDto;
 import com.sinta.sinta_app.entity.Response;
 import com.sinta.sinta_app.exception.AgentNotFoundException;
+import com.sinta.sinta_app.exception.TripNotFoundException;
 
 @RestController
 @RequestMapping("/agent")
@@ -56,6 +57,11 @@ public class AgentController {
     @GetMapping("/get")
     public ResponseEntity<Response> getAgent() throws AgentNotFoundException{
         return this.service.getAgents();
+    }
+
+    @GetMapping("/getbytrip/{id}")
+    public ResponseEntity<Response> getAgentByTripId(@PathVariable("id") Long id) throws TripNotFoundException{
+        return this.service.getAgentByTripId(id);
     }
 
     @GetMapping("/isverified")

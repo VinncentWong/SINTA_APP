@@ -15,6 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sinta.sinta_app.entity.Extractable;
 import com.sinta.sinta_app.entity.Role;
 import com.sinta.sinta_app.entity.StatusVerified;
@@ -26,6 +27,7 @@ import lombok.Data;
 @Entity
 @Data
 @DynamicUpdate
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Agent implements Extractable{
     
     @Id

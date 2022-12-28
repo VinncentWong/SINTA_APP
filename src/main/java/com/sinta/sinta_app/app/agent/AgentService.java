@@ -118,6 +118,7 @@ public class AgentService {
     public ResponseEntity<Response> getAgentByTripId(Long tripId) throws TripNotFoundException{
         Trip trip = this.tripRepository.findById(tripId).orElseThrow(() -> new TripNotFoundException("data trip tidak ditemukan"));
         Agent agent = trip.getAgent();
+        agent.setTrip(List.of(trip));
         return this.util.sendResponse("sukses menemukan data agent", HttpStatus.OK, true, agent);
     }
 

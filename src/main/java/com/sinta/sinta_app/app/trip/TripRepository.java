@@ -24,4 +24,7 @@ public interface TripRepository extends CrudRepository<Trip, Long>{
 
     @Query(nativeQuery = true, value = "SELECT * FROM trip WHERE need_requirement = ?1")
     List<Trip> find(boolean notNeedRequirement);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM trip WHERE id IN (SELECT id_trip FROM harga WHERE harga <= ?1) AND kategori_trip = ?2")
+    List<Trip> find(Long maxPrice, int kategori);
 }

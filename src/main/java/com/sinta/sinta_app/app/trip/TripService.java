@@ -207,4 +207,12 @@ public class TripService {
         }
         return this.util.sendResponse("sukses mendapatkan trip", HttpStatus.OK, true, trip);
     }
+
+    public ResponseEntity<Response> getTrip(Long maxPrice, KategoriTrip kategoriTrip) throws TripNotFoundException{
+        List<Trip> trip = this.repository.find(maxPrice, kategoriTrip.ordinal());
+        if(trip.size() == 0){
+            throw new TripNotFoundException("data trip tidak ditemukan");
+        }
+        return this.util.sendResponse("sukses mendapatkan trip", HttpStatus.OK, true, trip);
+    }
 }

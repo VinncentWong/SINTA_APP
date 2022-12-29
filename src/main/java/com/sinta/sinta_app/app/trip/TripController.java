@@ -25,8 +25,6 @@ import com.sinta.sinta_app.exception.AgentNotFoundException;
 import com.sinta.sinta_app.exception.TripNotFoundException;
 import com.sinta.sinta_app.util.ResponseUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
 @RestController
 @RequestMapping("/trip")
 public class TripController {
@@ -86,5 +84,18 @@ public class TripController {
     @GetMapping("/get/requirement")
     public ResponseEntity<Response> getTripByRequirement(@RequestParam("requirement") boolean requirement) throws TripNotFoundException{
         return this.service.getTrip(requirement);
+    }
+
+    @GetMapping("/get/maxpricekategori")
+    public ResponseEntity<Response> getTrip(@RequestParam("maxprice") Long maxPrice, @RequestParam("kategori") String kategoriTrip) throws TripNotFoundException{
+        KategoriTrip kategori = switch (kategoriTrip) {
+            case "lokal", "Lokal"-> KategoriTrip.LOKAL;
+            case "internasional", "Internasional" -> KategoriTrip.INTERNASIONAL;
+            default -> null;
+        };
+        if(kategori == null){
+            return this.util.sendResponse("RequestParam kategori tidak valid", HttpStatus.BAD_REQUEST, true, null);
+        }
+        return this.service.getTrip(maxPrice, kategori);
     }
 }

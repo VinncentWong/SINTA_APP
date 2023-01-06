@@ -56,6 +56,8 @@ public class Agent implements Extractable{
 
     private byte[] suratIzinUsaha;
 
+    private byte[] fotoProfil;
+
     private String linkGmaps;
 
     private String linkAkunTelegram;

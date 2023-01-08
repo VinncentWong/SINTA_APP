@@ -35,8 +35,8 @@ public class AgentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Response> createAgent(@RequestPart("dto") @Valid RegistrationDto dto, @RequestPart("photo") MultipartFile photo) throws IOException{
-        return this.service.createAgent(dto, photo);
+    public ResponseEntity<Response> createAgent(@RequestBody @Valid RegistrationDto dto) throws IOException{
+        return this.service.createAgent(dto);
     }
 
     @PostMapping("/login")

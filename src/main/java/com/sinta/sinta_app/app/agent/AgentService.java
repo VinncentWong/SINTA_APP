@@ -52,7 +52,7 @@ public class AgentService {
         this.tripRepository = tripRepo;
     }
 
-    public ResponseEntity<Response> createAgent(RegistrationDto dto, MultipartFile photo) throws IOException{
+    public ResponseEntity<Response> createAgent(RegistrationDto dto) throws IOException{
         Optional<Agent> check = this.repository.findByEmail(dto.email());
         if(check.isPresent()){
             return this.util.sendResponse("email sudah terdaftar", HttpStatus.INTERNAL_SERVER_ERROR, false, null);
@@ -62,7 +62,6 @@ public class AgentService {
         agent.setEmail(dto.email());
         agent.setPassword(bcrypt.encode(dto.password()));
         agent.setNamaBadanUsaha(dto.namaBadanUsaha());
-        agent.setFotoProfil(photo.getBytes());
         this.repository.save(agent);
         return this.util.sendResponse("sukses membuat agent", HttpStatus.CREATED, true, agent);
     }
